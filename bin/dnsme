@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+# vim: set ft=ruby
+
+require 'optparse'
+require 'yaml'
+
+require 'dnsme'
+require 'dnsme/version'
+
+# FIXME: puke if not found. create one.
+config = YAML.load_file("#{Dir.home}/.dnsme.yml")
+
+options = {}
+opt_parser = OptionParser.new do |opt|
+  opt.banner = 'Usage: dnsme DOMAIN [OPTIONS]'
+  opt.separator  ''
+  opt.separator  'Options'
+
+  opt.on('-f', '--foo FOO', 'foo?') do |foo|
+    options[:foo] = foo
+  end
+
+  opt.on('-h', '--help', 'help') do
+    puts opt_parser
+    exit
+  end
+
+  opt.on('-v', '--version', 'version') do
+    puts "dnsme v#{Dnsme::VERSION}"
+    exit
+  end
+end
+
+opt_parser.parse!
+
+dnsme = Dnsme::Request.new(config['api_key'], config['secret_key'])
+
+if ARGV.empty?
+  dnsme.domains.each { |domain| puts domain }
+else
+  dnsme.records(ARGV[0])
+end
