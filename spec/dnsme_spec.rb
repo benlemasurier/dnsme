@@ -8,9 +8,13 @@ describe Dnsme do
       secret_key: '70fb1f61-0d1b-4146-a8e5-b8f3ac458586'
     }
   }
-
-  it 'exists' do
-    pending
+  describe '.domains' do
+    it 'should return a list of domains' do
+      pending
+      # expect {
+      #   Dnsme.domains(config)
+      # }.to eq([])
+    end
   end
 
   context 'with invalid credentials' do
