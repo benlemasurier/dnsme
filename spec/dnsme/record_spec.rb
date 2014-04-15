@@ -1,17 +1,19 @@
 require 'spec_helper'
 
 describe Dnsme::Record do
-  let(:mock_data) {{
-    id: '123456789',
-    name: 'test',
-    type: 'CNAME',
-    ttl: '900',
-    data: 'example.com'
-  }}
+  let(:mock_data) do
+    {
+      id: '123456789',
+      name: 'test',
+      type: 'CNAME',
+      ttl: '900',
+      data: 'example.com'
+    }
+  end
 
-  let(:record) {
+  let(:record) do
     Dnsme::Record.new mock_data
-  }
+  end
 
   describe '.id' do
     it 'matches mock data' do
