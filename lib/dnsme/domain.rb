@@ -11,8 +11,8 @@ class Dnsme::Domain
   def records
     records = @api.list_records @domain
     records.each do |r|
-      foo = Dnsme::Record.new r
-      puts "#{foo.name} -> #{foo.value} (#{foo.type})"
+      record = Dnsme::Record.new r
+      puts "#{record.name} -> #{record.value} (#{record.type})"
     end
   end
 end

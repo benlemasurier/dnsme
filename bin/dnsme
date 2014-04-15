@@ -34,7 +34,6 @@ end
 
 opt_parser.parse!
 
-
 if ARGV.empty?
   domains = Dnsme.domains(api_key: config['api_key'], secret_key: config['secret_key'])
   domains.each { |domain| puts domain }
