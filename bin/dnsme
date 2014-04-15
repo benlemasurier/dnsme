@@ -5,6 +5,7 @@ require 'optparse'
 require 'yaml'
 
 require 'dnsme'
+require 'dnsme/domain'
 require 'dnsme/version'
 
 # FIXME: puke if not found. create one.
@@ -33,10 +34,11 @@ end
 
 opt_parser.parse!
 
-dnsme = Dnsme::Request.new(config['api_key'], config['secret_key'])
 
 if ARGV.empty?
-  dnsme.domains.each { |domain| puts domain }
+  domains = Dnsme.domains(api_key: config['api_key'], secret_key: config['secret_key'])
+  domains.each { |domain| puts domain }
 else
-  dnsme.records(ARGV[0])
+  domain = Dnsme::Domain.new(ARGV[0], api_key: config['api_key'], secret_key: config['secret_key'])
+  domain.records
 end
